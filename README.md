@@ -131,4 +131,7 @@ for ClassInd,conf,boxes in zip(ClassIndex.flatten(),confidence.flatten(),bbox):
     cv2.putText(img,classLabels[ClassInd-1],(boxes[0]+10,boxes[1]+40),font,fontScale=font_scale,color=(255,0,0),thickness=1)
 plt.imshow(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
 ```
-
+## OUTPUT
+### I)Perform ROI from an image
+### II)Perform handwritting detection in an image
+### III)Perform object detection with label in an image
