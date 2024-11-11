@@ -52,24 +52,43 @@ Display the result.
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-image_path = 'nature.jpg'
+
+image_path = 'flower.jpg'
 img = cv2.imread(image_path)
 img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 plt.imshow(img_rgb)
 plt.title('Original Image')
 plt.axis('off')
 plt.show()
+
 hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-lower_yellow = np.array([22, 93, 0])#choose the RGB values accordingly to display specific color
+lower_yellow = np.array([22, 93, 0])
 upper_yellow = np.array([45, 255, 255])
 mask = cv2.inRange(hsv_img, lower_yellow, upper_yellow)
-bitwise_and 
-segmented_image = cv2.bitwise_and(img, img, mask=mask)
-segmented_image_rgb = cv2.cvtColor(segmented_image, cv2.COLOR_BGR2RGB)
-plt.imshow(segmented_image_rgb)
-plt.title('Segmented Image (Yellow)')
+x_start, y_start = 100, 100
+x_end, y_end = 400, 400
+
+roi = img[y_start:y_end, x_start:x_end]
+roi_mask = mask[y_start:y_end, x_start:x_end]
+segmented_roi = cv2.bitwise_and(roi, roi, mask=roi_mask)
+
+roi_rgb = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
+segmented_roi_rgb = cv2.cvtColor(segmented_roi, cv2.COLOR_BGR2RGB)
+
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.imshow(roi_rgb)
+plt.title('Original ROI')
 plt.axis('off')
+
+plt.subplot(1, 2, 2)
+plt.imshow(segmented_roi_rgb)
+plt.title('Segmented ROI (Yellow)')
+plt.axis('off')
+
 plt.show()
+
 ```
 
 
@@ -133,5 +152,9 @@ plt.imshow(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
 ```
 ## OUTPUT
 ### I)Perform ROI from an image
+![image](https://github.com/user-attachments/assets/28f1569c-6e48-4410-b593-72639856d31e)
+![image](https://github.com/user-attachments/assets/f5decb8f-b03c-488a-b279-80bdf0cf8484)
+
+
 ### II)Perform handwritting detection in an image
 ### III)Perform object detection with label in an image
